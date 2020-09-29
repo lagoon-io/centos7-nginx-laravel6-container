@@ -6,6 +6,12 @@
 - Laravel: 6.x
 - Nginx: 1.18.x
 
+## Port Mapping
+
+- 22:   localhost:22011
+- 80:   localhost:8080
+- 9001: localhost:9011
+
 ## setup
 
 ```
