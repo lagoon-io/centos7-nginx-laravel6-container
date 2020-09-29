@@ -24,12 +24,11 @@ RUN yum update -y \
   && rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
   && rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm \
   # php依存パッケージのインストール
-  && yum install -y httpd openssl-devel autoconf zlib-devel systemd-sysv automake pcre-devel krb5-devel libxslt libxml2-devel libedit-devel \
+  && yum install -y gcc gcc-c++ libtool httpd openssl-devel autoconf zlib-devel systemd-sysv automake pcre-devel krb5-devel libxslt libxml2-devel libedit-devel \
   # 標準リポジトリを無効化、remiリポジトリを有効化してphpをインストール
-  && yum install -y --disablerepo=* --enablerepo=remi,remi-php72 php php-fpm php-cli php-common php-devel php-mbstring php-pear php-pecl-apcu php-soap php-xml php-xmlrpc php-zip php-pdo \
+  && yum install -y --disablerepo=* --enablerepo=epel,remi,remi-php72 php php-fpm php-cli php-common php-devel php-mbstring php-pear php-pecl-apcu php-soap php-xml php-xmlrpc php-zip php-pdo \
   # xdebugのインストール
-  && yum install -y gcc \
-  && pecl install xdebug-2.2.7 \
+  && pecl install xdebug-2.9.8 \
   # アプリケーションマウントポイント作成
   && mkdir /var/www/app/ && chmod 775 -R /var/www/ \
   # php-fpmの設定をApacheからNginxに変更
@@ -42,8 +41,8 @@ RUN yum update -y \
   && passwd -d root \
   && usermod -a -G root apache \
   && usermod -a -G root nginx \
-  && chmod +x /etc/rc.local \
-  && chmod +x /etc/rc.d/rc.local \
+  && chmod u+x /etc/rc.local \
+  && chmod u+x /etc/rc.d/rc.local \
   && chmod +x /docker-bootstrap.sh \
   && echo "sh /docker-bootstrap.sh" >> /etc/rc.local
 
@@ -56,5 +55,7 @@ EXPOSE 22
 EXPOSE 80
 EXPOSE 9000
 EXPOSE 9001
+
+WORKDIR /var/www/app/public
 
 CMD ["/sbin/init"]

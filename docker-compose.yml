@@ -1,5 +1,6 @@
 version: "2"
 services:
+  # Nginx + PHP + Laravel
   webapp:
     container_name: php-webapp
     build:

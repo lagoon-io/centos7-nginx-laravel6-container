@@ -6,6 +6,11 @@ if [ -d "/var/www/app/public/app" ] && [ ! -d "/var/www/app/public/vendor" ]; th
   composer install
 else
   cd /var/www/app/public
-  composer create-project "laravel/laravel=6.*.*" app
+  composer create-project "laravel/laravel=6.*.*" laravelapp
   chmod -R 777 ./*
+  # .始まりのファイルもコピーできるようにする
+  shopt -s dotglob
+  cp -r /var/www/app/public/laravelapp/* /var/www/app/public/
+  rm -rf laravelapp
+  cp .env.example .env
 fi
