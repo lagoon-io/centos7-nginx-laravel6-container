@@ -13,4 +13,5 @@ else
   cp -r /var/www/app/public/laravelapp/* /var/www/app/public/
   rm -rf laravelapp
   cp .env.example .env
+  php artisan key:generate
 fi
