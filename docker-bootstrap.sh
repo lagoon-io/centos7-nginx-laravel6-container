@@ -14,4 +14,5 @@ else
   rm -rf laravelapp
   cp .env.example .env
   php artisan key:generate
+  php artisan config:cache
 fi
