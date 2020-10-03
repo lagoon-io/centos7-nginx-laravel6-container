@@ -4,6 +4,13 @@ if [ -d "/var/www/app/public/app" ] && [ ! -d "/var/www/app/public/vendor" ]; th
   cd /var/www/app/public
   chmod -R 777 ./*
   composer install
+  php artisan key:generate
+  php artisan config:cache
+
+elif [ -d "/var/www/app/public/app" ];then
+  cd /var/www/app/public
+  php artisan config:cache
+
 else
   cd /var/www/app/public
   composer create-project "laravel/laravel=6.*.*" laravelapp
